@@ -1107,6 +1107,9 @@
             <button class="music-btn" onclick="pauseMusic()">
               ⏸️ Pause Music
             </button>
+             <button class="music-btn" onclick="playMusic1()">
+              🎵 I Want To Say..
+            </button>
           </div>
           <button class="btn" style="margin-top: 40px" onclick="resetCard()">
             <span>Create Another Card 🔄</span>
@@ -1122,7 +1125,7 @@
       let birthdayPersonName = "Shilpa (Tamkeen) ❤️";
 
       const FIXED_DATA = {
-        yourName: "Saurabh",
+        yourName: "Your duffer",
         partnerName: "Tamkeen",
         message: `Happy Birthday my love 🎂💖
 You are the reason behind my smile.
@@ -1132,7 +1135,12 @@ May this year bring you endless happiness ✨`,
           { src: "images/photo2.jpeg", caption: "Best day ever 🌸" },
           { src: "images/photo3.jpeg", caption: "Forever together 💖" },
         ],
-        music: "music/birthday.mp3",
+        music:{main:"music/birthday.mp3", special:"music/janam.mp4"},
+
+      
+        
+
+
       };
 
       // Generate birthday card
@@ -1388,16 +1396,22 @@ May this year bring you endless happiness ✨`,
 
 document.getElementById("musicControlsDiv").style.display = "flex";
 function playMusic() {
-
   const audio = document.getElementById("birthdayAudio");
+  audio.src = FIXED_DATA.music.main;
   audio.volume = 0.6;
-  audio.play().catch(() => {
-    console.log("User interaction required for autoplay");
-  });
-  }
+  audio.play().catch(err => console.log(err));
+}
+
+function playMusic1() {
+  const audio = document.getElementById("birthdayAudio");
+  audio.src = FIXED_DATA.music.special;
+  audio.volume = 0.6;
+  audio.play().catch(err => console.log(err));
+}
 
 function pauseMusic() {
-  document.getElementById("birthdayAudio").pause();
+  const audio = document.getElementById("birthdayAudio");
+  audio.pause();
 }
 
 
@@ -1438,7 +1452,8 @@ function pauseMusic() {
 
         // Load music
         const audio = document.getElementById("birthdayAudio");
-        audio.src = FIXED_DATA.music;
+        audio.src = FIXED_DATA.music.main;
+        audio.load()
         document.getElementById("musicControlsDiv").style.display = "flex";
 
         // Start animations
